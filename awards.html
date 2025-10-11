@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Awards — Abhishek Mishra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --color-primary: #3b82f6;
+            --color-secondary: #10b981;
+            --color-accent: #f59e0b;
+            --color-danger: #ef4444;
+            --color-bg: #0a0a0a;
+            --color-surface: #111827;
+            --color-surface-light: #1f2937;
+            --color-text: #f9fafb;
+            --color-text-muted: #9ca3af;
+            --color-border: #374151;
+            
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-success: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            
+            --font-heading: 'Inter', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow), var(--shadow-lg);
+        }
+
+        /* Main Section */
+        .main-section {
+            padding: 8rem 0 4rem;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .trophy-icon {
+            display: inline-block;
+            animation: bounce 2s infinite;
+            font-size: 0.8em;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            40% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+            60% {
+                transform: translateY(-5px) rotate(-5deg);
+            }
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* Awards Grid */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .award-card {
+            background: var(--color-surface);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .award-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
+        }
+
+        .award-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .award-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .award-card:hover .award-image img {
+            transform: scale(1.1);
+        }
+
+        /* Image overlay */
+        .award-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .award-card:hover .award-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Shimmer effect */
+        .award-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent,
+                transparent
+            );
+            transform: rotate(45deg) translateX(-100%);
+            transition: transform 0.8s ease;
+            z-index: 3;
+        }
+
+        .award-card:hover .award-image::after {
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        /* Award content */
+        .award-content {
+            padding: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+            background: var(--color-surface);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .award-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transition: width 0.5s ease;
+        }
+
+        .award-card:hover .award-content::before {
+            width: 100%;
+        }
+
+        /* Special effects for featured awards */
+        .award-card:nth-child(1)::after, 
+        .award-card:nth-child(7)::after {
+            content: '⭐';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            z-index: 5;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.7; 
+            }
+            50% { 
+                transform: scale(1.2); 
+                opacity: 1; 
+            }
+        }
+
+        /* Floating effect */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .award-card:nth-child(odd):hover {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Glowing border effect */
+        .award-card:hover {
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.3),
+                0 0 30px rgba(102, 126, 234, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Last note styling */
+        .last-note {
+            margin: 4rem 0 2rem;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--color-text);
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 1.5s ease forwards;
+            animation-delay: 1.5s;
+            background: var(--color-surface);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-surface);
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            text-align: center;
+            color: var(--color-text-muted);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation delays */
+        .award-card:nth-child(1) { animation-delay: 0.1s; }
+        .award-card:nth-child(2) { animation-delay: 0.2s; }
+        .award-card:nth-child(3) { animation-delay: 0.3s; }
+        .award-card:nth-child(4) { animation-delay: 0.4s; }
+        .award-card:nth-child(5) { animation-delay: 0.5s; }
+        .award-card:nth-child(6) { animation-delay: 0.6s; }
+        .award-card:nth-child(7) { animation-delay: 0.7s; }
+        .award-card:nth-child(8) { animation-delay: 0.8s; }
+        .award-card:nth-child(9) { animation-delay: 0.9s; }
+        .award-card:nth-child(10) { animation-delay: 1.0s; }
+        .award-card:nth-child(11) { animation-delay: 1.1s; }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .awards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-inner {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .award-card:hover {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html#top" class="logo">AM.</a>
+                <nav>
+                    <a class="nav-link" href="index.html">Back to Home</a>
+                    <a class="btn btn-primary" href="assets/CV.pdf" download rel="noopener">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="main-section">
+        <div class="container">
+            <h1 class="page-title fade-in">
+                Awards <span class="trophy-icon">🏆</span>
+            </h1>
+            <p class="page-subtitle fade-in">
+                Recognition and achievements throughout my journey
+            </p>
+
+            <div class="awards-grid">
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award6.jpeg" alt="Award 1">
+                        <div class="award-overlay">
+                            <div>
+                                🥇 First Position Achievement<br>
+                                <small style="opacity: 0.9;">Excellence in Technical Innovation</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Secured 1st position in inter-college technical event. 
+                        Recognized for innovative project work. 
+                        A proud moment to represent my team.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award1.jpeg" alt="Award 2">
+                        <div class="award-overlay">
+                            <div>
+                                📚 Academic Excellence<br>
+                                <small style="opacity: 0.9;">Top Ranking Achievement</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Awarded for academic excellence in semester results. 
+                        Maintained top ranking consistently. 
+                        Demonstrated dedication and hard work.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award7.jpeg" alt="Award 3">
+                        <div class="award-overlay">
+                            <div>
+                                💻 Hackathon Participation<br>
+                                <small style="opacity: 0.9;">24-Hour Innovation Challenge</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Participation in national-level hackathon. 
+                        Developed a working prototype in 24 hours. 
+                        Great exposure and teamwork experience.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award2.jpeg" alt="Award 4">
+                        <div class="award-overlay">
+                            <div>
+                                👥 Leadership Recognition<br>
+                                <small style="opacity: 0.9;">Community Impact Award</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Recognition for leadership in student community. 
+                        Organized multiple events successfully. 
+                        Built strong collaboration skills.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award5.jpeg" alt="Award 5">
+                        <div class="award-overlay">
+                            <div>
+                                🎭 Volunteer Appreciation<br>
+                                <small style="opacity: 0.9;">Cultural Fest Management</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Awarded certificate of appreciation for volunteering. 
+                        Helped manage large scale cultural fest. 
+                        Learned event coordination skills.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award10.jpeg" alt="Award 6">
+                        <div class="award-overlay">
+                            <div>
+                                ☁️ Cloud Computing Excellence<br>
+                                <small style="opacity: 0.9;">AWS & Azure Certified</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Achieved excellence in cloud computing workshop. 
+                        Hands-on training with AWS and Azure. 
+                        Certified by industry experts.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award3.jpeg" alt="Award 7">
+                        <div class="award-overlay">
+                            <div>
+                                🏆 Coding Champion<br>
+                                <small style="opacity: 0.9;">200+ Participants Competition</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Winner of coding competition among 200+ students. 
+                        Solved advanced algorithmic challenges. 
+                        Proved problem-solving expertise.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award11.jpeg" alt="Award 8">
+                        <div class="award-overlay">
+                            <div>
+                                🤝 Social Impact<br>
+                                <small style="opacity: 0.9;">Community Welfare Projects</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Honored for active participation in social projects. 
+                        Worked with NGOs for community welfare. 
+                        Contributed to impactful initiatives.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award9.jpeg" alt="Award 9">
+                        <div class="award-overlay">
+                            <div>
+                                🤖 Machine Learning<br>
+                                <small style="opacity: 0.9;">AI/ML Certification</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Certificate for completing machine learning course. 
+                        Built predictive models successfully. 
+                        Enhanced AI/ML skills for real-world use.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award8.jpeg" alt="Award 10">
+                        <div class="award-overlay">
+                            <div>
+                                🎓 Faculty Recognition<br>
+                                <small style="opacity: 0.9;">Mentorship Excellence</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Special recognition from faculty for dedication. 
+                        Supported juniors in academic mentoring. 
+                        Appreciated for teamwork and guidance.
+                    </div>
+                </div>
+
+                <div class="award-card fade-in">
+                    <figure class="award-image">
+                        <img src="picss/award4.jpeg" alt="Award 11">
+                        <div class="award-overlay">
+                            <div>
+                                🎤 Presentation Excellence<br>
+                                <small style="opacity: 0.9;">Inter-College Seminars</small>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="award-content">
+                        Appreciation for excellence in presentations. 
+                        Represented institution in inter-college seminars. 
+                        Delivered impactful and confident talks.
+                    </div>
+                </div>
+            </div>
+
+            <div class="last-note fade-in">
+                These achievements represent my <strong>dedication and hard work</strong>. 
+                Each moment captured here reflects the passion to keep moving forward. 
+                They are milestones in my journey and continue to inspire me for future challenges.
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© <span id="currentYear"></span> Abhishek Mishra. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.9)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

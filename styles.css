@@ -178,6 +178,7 @@ nav a:hover::after {
 /* Hero Section */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh; /* Better mobile support for full viewport height */
   display: flex;
   align-items: center;
   position: relative;
@@ -288,6 +289,7 @@ nav a:hover::after {
   top: 0;
   left: 0;
   pointer-events: none;
+  display: block;
 }
 
 .floating-icon {
@@ -1326,6 +1328,16 @@ footer {
   .contact-info-section {
     order: 2;
   }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-text .section-title,
+  .about-text .section-subtitle {
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1357,14 +1369,27 @@ footer {
 
   .hero-stats {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .floating-elements {
+    display: none;
   }
 
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .timeline::before {
@@ -1419,11 +1444,344 @@ footer {
     padding: 1.5rem;
   }
 
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
   .carousel-btn.prev {
     left: -15px;
   }
 
   .carousel-btn.next {
     right: -15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+
+  .hero-text .subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .stat-item .number {
+    font-size: 1.25rem;
+  }
+
+  .stat-item .label {
+    font-size: 0.8rem;
+  }
+
+  .profile-card {
+    width: 250px;
+    height: 250px;
+  }
+
+  .about-img {
+    height: 300px;
+    max-width: 100%;
+  }
+
+  .skills-grid {
+    gap: 0.75rem;
+  }
+
+  .skill-card {
+    padding: 1.25rem;
+  }
+
+  .skill-icon {
+    font-size: 2.5rem;
+  }
+
+  .skill-title {
+    font-size: 1.1rem;
+  }
+
+  .projects-grid {
+    gap: 0.75rem;
+  }
+
+  .project-card {
+    margin: 0;
+  }
+
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    padding-left: 50px;
+  }
+
+  .timeline-marker {
+    left: 8px;
+  }
+
+  .timeline-content {
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .timeline-content::before {
+    left: -15px !important;
+    border-right-color: var(--color-surface) !important;
+    border-left-color: transparent !important;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .achievement-card {
+    padding: 1.25rem;
+  }
+
+  .contact-form {
+    padding: 1.25rem;
+  }
+
+  .contact-info {
+    padding: 0.75rem;
+  }
+
+  .contact-map-container iframe {
+    height: 200px;
+  }
+
+  .contact-list li {
+    padding: 0.5rem;
+  }
+
+  .contact-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .social-links {
+    gap: 0.5rem;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .footer-content {
+    gap: 1.25rem;
+  }
+
+  .newsletter {
+    flex-direction: column;
+  }
+
+  .newsletter input,
+  .newsletter button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .hero-content {
+    gap: 6rem;
+  }
+
+  .profile-card {
+    width: 450px;
+    height: 450px;
+  }
+
+  .about-content {
+    gap: 4rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+
+  .achievements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
+  .contact-layout {
+    gap: 4rem;
+  }
+}
+
+/* Chatbot Widget */
+#chatbot-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1001;
+}
+
+#chatbot-button {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-glow);
+  transition: all 0.3s ease;
+}
+
+#chatbot-button:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-glow), var(--shadow-lg);
+}
+
+#chatbot-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  height: 500px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#chatbot-window.hidden {
+  display: none;
+}
+
+#chatbot-header {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+#chatbot-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: var(--color-bg);
+}
+
+.chat-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  max-width: 80%;
+}
+
+.chat-message.bot {
+  background: var(--color-surface-light);
+  color: var(--color-text);
+  align-self: flex-start;
+}
+
+.chat-message.user {
+  background: var(--gradient-primary);
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+#chatbot-input-container {
+  display: flex;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+#chatbot-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-surface-light);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+#chatbot-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+#chatbot-send {
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+#chatbot-send:hover {
+  background: var(--color-secondary);
+}
+
+/* Mobile adjustments for chatbot */
+@media (max-width: 768px) {
+  #chatbot-widget {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  #chatbot-window {
+    width: 300px;
+    height: 400px;
+    bottom: 70px;
   }
 }

@@ -105,6 +105,7 @@
         top: 0;
         width: 100%;
         background: rgba(10, 10, 10, 0.9);
+        -webkit-backdrop-filter: blur(20px);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--color-border);
         z-index: 1000;
@@ -358,6 +359,13 @@
       }
 
       /* Responsive */
+      .project-bg-eks {
+        background: linear-gradient(135deg, #326ce5 0%, #764ba2 100%);
+      }
+      .hidden-icon {
+        font-size: 0;
+      }
+
       @media (max-width: 768px) {
         .projects-grid {
           grid-template-columns: 1fr;
@@ -407,12 +415,9 @@
           <!-- Project 1: Kubernetes Ingress on AWS EKS -->
           <article class="project-card fade-in">
             <figure
-              class="project-image custom-image"
-              style="
-                background: linear-gradient(135deg, #326ce5 0%, #764ba2 100%);
-              ">
+              class="project-image custom-image project-bg-eks">
               <img src="project image/image.png" alt="EKS Project" />
-              <i class="fas fa-dharmachakra" style="font-size: 0rem"></i>
+              <i class="fas fa-dharmachakra hidden-icon"></i>
             </figure>
             <div class="project-content">
               <h3 class="project-title">

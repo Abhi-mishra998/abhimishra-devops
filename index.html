@@ -62,6 +62,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
     <!-- Header -->
     <header>
       <div class="container">
@@ -84,10 +85,11 @@
 
               <li><a href="#experience">Experience</a></li>
               <li><a href="projects2.html">All Projects</a></li>
+              <li><a href="blog.html">Blog</a></li>
               <li><a href="#achievements">Achievements</a></li>
               <li><a href="awards.html">Awards</a></li>
               <li>
-                <a href="Abhishek-mishra-resume2.pdf" class="btn btn-primary"
+                <a href="ABHISHEK MISHRA final resume-v4.pdf" class="btn btn-primary"
                   >Download CV</a
                 >
               </li>
@@ -108,9 +110,10 @@
               I build scalable cloud solutions and automate workflows using AWS,
               Kubernetes, Terraform, Docker, and CI/CD.
             </p>
+            <div class="typing-loop" aria-hidden="false"><span id="typingLoop"></span></div>
             <div class="hero-stats">
               <div class="stat-item">
-                <div class="number">39+</div>
+                <div class="number">50+</div>
                 <div class="label">Projects</div>
               </div>
               <div class="stat-item">
@@ -122,7 +125,7 @@
                 <div class="label">Internships</div>
               </div>
               <div class="stat-item">
-                <div class="number">208+</div>
+                <div class="number">315+</div>
                 <div class="label">contributions in 2 months</div>
               </div>
             </div>
@@ -136,16 +139,19 @@
             </div>
           </div>
           <div class="hero-image slide-in-right">
-            <div class="profile-card">
-              <img src="front2.jpg" alt="Abhishek Mishra" class="profile-img" />
+            <div class="profile-frame">
+              <div class="profile-card">
+                <img src="abhim.jpg" alt="Abhishek Mishra" class="profile-img" />
+              </div>
             </div>
-            <div class="floating-elements">
-              <div class="floating-icon">
-                <i class="fab fa-aws"></i>
-              </div>
-              <div class="floating-icon">
-                <i class="fab fa-docker"></i>
-              </div>
+            <div class="tech-rotator" aria-hidden="true">
+              <div class="tech-icon"><i class="fab fa-aws"></i></div>
+              <div class="tech-icon"><i class="fab fa-docker"></i></div>
+              <div class="tech-icon"><i class="fab fa-github"></i></div>
+             
+            </div>
+            <div class="floating-elements" aria-hidden="true">
+              <!-- Keep a single floating cloud icon to avoid duplication with the rotator -->
               <div class="floating-icon">
                 <i class="fas fa-cloud"></i>
               </div>
@@ -199,7 +205,7 @@
 
             <div class="about-buttons">
               <a href="#contact" class="btn">☕ Let's Collaborate</a>
-              <a href="Abhishek-mishra-resume2.pdf" class="btn btn-outline"
+              <a href="ABHISHEK MISHRA final resume-v4.pdf" class="btn btn-outline"
                 >📄 Download Resume</a
               >
             </div>

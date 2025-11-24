@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog — Abhishek Mishra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-inner">
+          <a href="index.html#top" class="logo">AM.</a>
+          <nav>
+            <a class="nav-link" href="index.html">Back to Home</a>
+            <a class="nav-link" href="https://blog.abhimishra-devops.com/" target="_blank" rel="noopener noreferrer">Visit External Blog</a>
+            <a class="btn btn-primary" href="Abhishek-mishra-resume2.pdf" download rel="noopener">
+              <i class="fas fa-download"></i> Download CV
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-section">
+      <div class="container">
+        <h1 class="page-title fade-in">Blog</h1>
+        <p class="page-subtitle fade-in">Shortcuts to my posts and writing — hosted externally.</p>
+
+        <section class="blog-hero">
+          <div class="blog-card">
+            <div class="blog-card-left">
+              <div class="node-badge">
+                <svg width="48" height="48" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                  <circle cx="128" cy="128" r="128" fill="#43853d" />
+                </svg>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <h2>All blog posts</h2>
+              <p class="muted">I publish technical posts and tutorials on my blog. Click below to view everything.</p>
+              <div class="blog-actions">
+                <a class="btn btn-primary" href="https://blog.abhimishra-devops.com/" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i> See all posts
+                </a>
+                <a class="btn btn-outline" href="mailto:abhishekmmishra09896@gmail.com">Contact about a post</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>© <span id="currentYear"></span> Abhishek Mishra. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, observerOptions);
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>

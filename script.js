@@ -164,6 +164,8 @@ if (skillsSection) {
 
 // Typing animation for hero text
 const typeWriter = (element, text, speed = 100) => {
+  if (!element) return;
+  element.classList.add("typing");
   let i = 0;
   const timer = setInterval(() => {
     if (i < text.length) {
@@ -171,6 +173,8 @@ const typeWriter = (element, text, speed = 100) => {
       i++;
     } else {
       clearInterval(timer);
+      // remove typing cursor after small delay
+      setTimeout(() => element.classList.remove("typing"), 300);
     }
   }, speed);
 };
@@ -202,16 +206,51 @@ document
     });
   });
 
-// Parallax effect for hero section
-window.addEventListener("scroll", () => {
-  const scrolled = window.pageYOffset;
-  const parallaxElements = document.querySelectorAll(".floating-icon");
+// Parallax effect for hero section (uses requestAnimationFrame, respects reduced-motion)
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const parallaxElements = Array.from(document.querySelectorAll('.floating-icon'));
+  let lastScroll = 0;
+  let ticking = false;
+  // when scrolling stops, clear inline transforms so CSS animations can run again
+  let clearTransformTimer = null;
 
-  parallaxElements.forEach((element, index) => {
-    const speed = 0.5 + index * 0.1;
-    element.style.transform = `translateY(${scrolled * speed}px)`;
-  });
-});
+  const clearTransforms = () => {
+    parallaxElements.forEach((el) => {
+      // only clear transforms if not being dragged
+      if (!el.classList.contains('dragging')) el.style.transform = '';
+    });
+  };
+
+  const onScroll = () => {
+    lastScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    // while scrolling, cancel any pending clear
+    if (clearTransformTimer) {
+      clearTimeout(clearTransformTimer);
+      clearTransformTimer = null;
+    }
+
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        parallaxElements.forEach((element, index) => {
+          const speed = 0.18 + index * 0.06; // subtle parallax
+          const y = Math.round(lastScroll * speed);
+          // apply transform in addition to CSS animation; this will be cleared after scrolling stops
+          element.style.transform = `translateY(${y}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+
+    // clear transforms 220ms after scrolling stops so CSS animation resumes
+    clearTransformTimer = setTimeout(() => {
+      clearTransforms();
+    }, 220);
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
 
 // Add loading animation
 window.addEventListener("load", () => {
@@ -284,6 +323,96 @@ document.addEventListener("keydown", (e) => {
     navMenu.classList.remove("active");
   }
 });
+
+// Nav link active state on click (simple UX enhancement)
+document.querySelectorAll('nav a').forEach((link) => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('nav a').forEach((l) => l.classList.remove('active-link'));
+    link.classList.add('active-link');
+  });
+});
+
+// Top scroll progress bar update
+const progressBar = document.getElementById('scrollProgress');
+if (progressBar) {
+  const updateProgress = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(100, Math.round((scrollTop / docHeight) * 100)) : 0;
+    progressBar.style.width = pct + '%';
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+}
+
+// Typing loop under hero subtitle (cycles short phrases). Respects reduced-motion.
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const typingEl = document.getElementById('typingLoop');
+if (typingEl && !prefersReduced) {
+  const phrases = [
+    'AWS • Kubernetes • Terraform',
+    'CI/CD • Docker • GitHub Actions',
+    'Infrastructure as Code',
+    'DevSecOps • Monitoring & Security',
+  ];
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let forward = true;
+  const typeSpeed = 40;
+  const pauseBetween = 1200;
+
+  const typeLoop = () => {
+    const current = phrases[phraseIndex];
+    if (forward) {
+      if (charIndex < current.length) {
+        typingEl.textContent += current.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLoop, typeSpeed);
+      } else {
+        forward = false;
+        setTimeout(typeLoop, pauseBetween);
+      }
+    } else {
+      if (charIndex > 0) {
+        typingEl.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(typeLoop, Math.max(20, typeSpeed / 1.2));
+      } else {
+        forward = true;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(typeLoop, 300);
+      }
+    }
+  };
+  // start after short delay to allow hero animation
+  setTimeout(typeLoop, 900);
+}
+
+// On-scroll active nav highlighting using IntersectionObserver
+try {
+  const sectionElements = Array.from(document.querySelectorAll('section[id]'));
+  if (sectionElements.length > 0) {
+    const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${id}`) {
+              navLinks.forEach(l => l.classList.remove('active-link'));
+              link.classList.add('active-link');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.45 });
+
+    sectionElements.forEach(sec => observer.observe(sec));
+  }
+} catch (e) {
+  // fail silently if environment doesn't support IntersectionObserver
+}
 
 // Add focus trap for mobile navigation
 const trapFocus = (element) => {
@@ -487,3 +616,51 @@ window.addEventListener("load", () => {
     1000
   );
 });
+
+// Make floating icons draggable (pointer events). Respects touch and mouse.
+(function () {
+  const container = document.querySelector('.hero-image');
+  const icons = Array.from(document.querySelectorAll('.floating-icon'));
+  if (!container || icons.length === 0) return;
+
+  icons.forEach((icon) => {
+    // ensure positioned relative to container
+    icon.style.position = 'absolute';
+
+    const onPointerDown = (e) => {
+      e.preventDefault();
+      icon.setPointerCapture(e.pointerId);
+      icon.classList.add('dragging');
+
+      const containerRect = container.getBoundingClientRect();
+      const iconRect = icon.getBoundingClientRect();
+      const offsetX = e.clientX - iconRect.left;
+      const offsetY = e.clientY - iconRect.top;
+
+      const onPointerMove = (ev) => {
+        const x = ev.clientX - containerRect.left - offsetX;
+        const y = ev.clientY - containerRect.top - offsetY;
+
+        // clamp inside container
+        const clampedX = Math.max(0, Math.min(containerRect.width - iconRect.width, x));
+        const clampedY = Math.max(0, Math.min(containerRect.height - iconRect.height, y));
+
+        icon.style.left = clampedX + 'px';
+        icon.style.top = clampedY + 'px';
+        icon.style.right = 'auto';
+      };
+
+      const onPointerUp = (ev) => {
+        try { icon.releasePointerCapture(e.pointerId); } catch (err) {}
+        icon.classList.remove('dragging');
+        document.removeEventListener('pointermove', onPointerMove);
+        document.removeEventListener('pointerup', onPointerUp);
+      };
+
+      document.addEventListener('pointermove', onPointerMove);
+      document.addEventListener('pointerup', onPointerUp);
+    };
+
+    icon.addEventListener('pointerdown', onPointerDown);
+  });
+})();
